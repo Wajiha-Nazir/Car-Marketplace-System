@@ -1,0 +1,55 @@
+public class Main {
+    public static void main(String[] args) {
+        Marketplace marketplace = new Marketplace();
+        Seller seller1 = new Seller("Ali", "ali@example.com", "0300-1234567");
+        Seller seller2 = new Seller("Sara", "sara@example.com", "0300-7654321");
+        marketplace.addSeller(seller1);
+        marketplace.addSeller(seller2);
+        Buyer buyer1 = new Buyer("Wajiha", "wajiha@example.com");
+        Buyer buyer2 = new Buyer("Ahmed", "ahmed@example.com");
+        marketplace.addBuyer(buyer1);
+        marketplace.addBuyer(buyer2);
+        Car car1 = new Car("Toyota", "Corolla", 2020, 3000000, 25000);
+        Car car2 = new Car("Honda", "Civic", 2021, 4000000, 15000);
+        Car car3 = new Car("Suzuki", "Alto", 2019, 1500000, 40000);
+        seller1.addListing(car1);
+        seller1.addListing(car2);
+        seller2.addListing(car3);
+        marketplace.addCar(car1);
+        marketplace.addCar(car2);
+        marketplace.addCar(car3);
+        System.out.println("\n--- All Cars in Marketplace ---");
+        marketplace.displayAllCars();
+        buyer1.addFavorite(car1);
+        buyer1.addFavorite(car3);
+        System.out.println("\n--- Buyer Favorites ---");
+        buyer1.viewFavorites();
+        System.out.println("\n--- Messaging ---");
+        buyer1.sendMessage(seller1, "Is the Corolla still available?");
+        Admin admin = new Admin("Admin1", "SuperAdmin");
+        Listing listing1 = new Listing(car1, seller1);
+        listing1.approve();
+        System.out.println("\n--- Listing Approval ---");
+        listing1.displayListing();
+        Payment payment1 = new Payment(buyer1, seller1, car1.getPrice(), "Bank Transfer");
+        System.out.println("\n--- Payment ---");
+        payment1.processPayment();
+        payment1.displayPayment();
+        Review review1 = new Review(buyer1, seller1, "Great seller, smooth transaction!", 5);
+        System.out.println("\n--- Review ---");
+        review1.displayReview();
+        SearchEngine searchEngine = new SearchEngine(new Car[]{car1, car2, car3}, 3);
+        System.out.println("\n--- Search by Brand (Toyota) ---");
+        searchEngine.searchByModel("Corolla");
+        System.out.println("\n--- Search by Price (1.5M - 3.5M) ---");
+        searchEngine.searchByPrice(1500000, 3500000);
+        System.out.println("\n--- Search by Year (2021) ---");
+        searchEngine.searchByYear(2021);
+        System.out.println("\n--- Search by Mileage (<30000) ---");
+        searchEngine.searchByMileage(30000);
+        System.out.println("\n--- Static Members ---");
+        System.out.println("Total Cars: " + Car.getCarCount());
+        System.out.println("Total Admins: " + Admin.getAdminCount());
+        System.out.println("Total Payments: " + Payment.getPaymentCount());
+    }
+}
